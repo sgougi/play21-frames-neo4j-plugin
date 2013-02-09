@@ -41,7 +41,6 @@ public class Neo4jGraphManager extends AbstractGraphManager {
 	final private Neo4jGraph graph;
 	
 	public Neo4jGraphManager() {
-		FramesLogger.info("Crate Neo4jGraphManager");
 		graph = createGraph();
 	}
 	
