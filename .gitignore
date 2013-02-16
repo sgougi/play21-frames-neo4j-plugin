@@ -19,3 +19,4 @@ dist
 *.lck
 /samples/frames-simple-app/.cache
 /.cache
+/bin
