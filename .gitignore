@@ -17,3 +17,5 @@ dist
 *.jdb
 *.info.*
 *.lck
+/samples/frames-simple-app/.cache
+/.cache
