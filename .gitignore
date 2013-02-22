@@ -20,3 +20,4 @@ dist
 /samples/frames-simple-app/.cache
 /.cache
 /bin
+/samples/frames-simple-app/.shell_history

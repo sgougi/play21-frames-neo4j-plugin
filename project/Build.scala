@@ -6,53 +6,67 @@ object ApplicationBuild extends Build {
 
 	val appName         = "play21-frames-neo4j-plugin"
 	val appVersion      = "1.0-SNAPSHOT"
+	val tinkerpopVersion = "2.2.0"	  
+
 	val neo4jVersion    = "1.9.M04"
-	val tinkerpopVersion = "2.2.0"  
+	val jerseyVersion   = "1.9"
+	  
+    val appDependencies = Seq(
+      "com.wingnest.play2" % "play21-frames-module_2.10" % "1.0-SNAPSHOT",
+      "org.neo4j" % "neo4j" % {neo4jVersion} force(),
+      "org.neo4j" % "neo4j-ha" % {neo4jVersion} force(),
+      "org.neo4j" % "neo4j-backup" % {neo4jVersion} force(),
+      "org.neo4j" % "neo4j-com" % {neo4jVersion} force(),
+      "org.neo4j" % "neo4j-cluster" % {neo4jVersion} force(),
+      "org.neo4j" % "neo4j-consistency-check" % {neo4jVersion} force(),
+      "org.neo4j" % "neo4j-management" % {neo4jVersion} force(),
+      ("com.tinkerpop.blueprints" % "blueprints-neo4j-graph" % {tinkerpopVersion})
+    )
 
-	val appDependencies = Seq(
-		"com.wingnest.play2" % "play21-frames-module_2.10" % "1.0-SNAPSHOT",
-	
-		
-		"org.neo4j" % "neo4j-community" % {neo4jVersion} force(),
-		"org.neo4j.app" % "neo4j-server" % {neo4jVersion} force(),
+    val main = play.Project(appName, appVersion, appDependencies).settings(		
+      // Add your own project settings here
 
-		"org.neo4j" % "neo4j-backup" % {neo4jVersion} force(),
-		"org.neo4j" % "neo4j-com" % {neo4jVersion} force(),
-		"org.neo4j" % "neo4j-cypher" % {neo4jVersion} force(),
-		"org.neo4j" % "neo4j-graph-algo" % {neo4jVersion} force(),
-		"org.neo4j" % "neo4j-graph-matching" % {neo4jVersion} force(),
-		"org.neo4j" % "neo4j-ha" % {neo4jVersion} force(), 
-		"org.neo4j" % "neo4j-jmx" % {neo4jVersion} force(),
-		"org.neo4j" % "neo4j-kernel" % {neo4jVersion} force(),
-		"org.neo4j" % "neo4j-lucene-index" % {neo4jVersion} force(),
-		"org.neo4j" % "neo4j-management" % {neo4jVersion} force(),
-		"org.neo4j" % "neo4j-shell" % {neo4jVersion} force(),
-		"org.neo4j" % "neo4j-udc" % {neo4jVersion} force(),
-		"org.neo4j" % "server-api" % {neo4jVersion} force(),
-		
-		"org.neo4j" % "neo4j-community" % {neo4jVersion} force(),
-		"org.neo4j.app" % "neo4j-server" % {neo4jVersion} force(),
-		"org.neo4j.server.plugin" % "neo4j-gremlin-plugin" % {neo4jVersion} force(),
-		"org.neo4j.server.plugin" % "neo4j-cypher-plugin" % {neo4jVersion} force(),
-		
-		("com.tinkerpop.blueprints" % "blueprints-neo4j-graph" % {tinkerpopVersion}),
-
-//		("com.sun.jersey" % "jersey-servlet" % "1.17"),
-		"com.sun.jersey" % "jersey-core" % "1.9" force(),
-		"com.sun.jersey.contribs" % "jersey-multipart" % "1.9" force(),
-		("janino" % "janino" % "2.5.10"),
-
+      libraryDependencies ++= Seq(
+        "org.neo4j.app" % "neo4j-server" % {neo4jVersion} classifier "static-web" classifier "",
+        "com.sun.jersey" % "jersey-core" % {jerseyVersion},
 		"ch.qos.logback" % "logback-core" % "1.0.3" force(),
-		"ch.qos.logback" % "logback-classic" % "1.0.3" force(),
-		
-		("org.neo4j.app" % "neo4j-server-1.9.M04-static-web" % {neo4jVersion} 
-           from  "http://m2.neo4j.org/releases/org/neo4j/app/neo4j-server/" + {neo4jVersion} + "/neo4j-server-" + {neo4jVersion} + "-static-web.jar")
-	)
+		"ch.qos.logback" % "logback-classic" % "1.0.3" force()
+      ),
 
-	val main = play.Project(appName, appVersion, appDependencies).settings(		
-	    organization := "com.wingnest.play2",
-	    resolvers += "Oracle Releases" at "http://download.oracle.com/maven/",
-	    resolvers += "JBOSS" at "https://repository.jboss.org/nexus/content/repositories/public/"
-	)
-	
+      resolvers ++= Seq(
+        //"maven-central" at "http://repo1.maven.org/maven2",
+        "neo4j-public-repository" at "http://m2.neo4j.org/content/groups/public"
+      )
+    )
+
+/*
+	val neo4jVersion    = "1.8"
+	val jerseyVersion   = "1.9"
+	  
+    val appDependencies = Seq(
+      "com.wingnest.play2" % "play21-frames-module_2.10" % "1.0-SNAPSHOT",
+      "org.neo4j" % "neo4j" % {neo4jVersion} force(),
+      "org.neo4j" % "neo4j-ha" % {neo4jVersion} force(),
+      "org.neo4j" % "neo4j-backup" % {neo4jVersion} force(),
+      "org.neo4j" % "neo4j-com" % {neo4jVersion} force(),
+      "org.neo4j" % "neo4j-management" % {neo4jVersion} force(),
+      ("com.tinkerpop.blueprints" % "blueprints-neo4j-graph" % {tinkerpopVersion})
+    )
+
+    val main = play.Project(appName, appVersion, appDependencies).settings(		
+      // Add your own project settings here
+
+      libraryDependencies ++= Seq(
+        "org.neo4j.app" % "neo4j-server" % {neo4jVersion} classifier "static-web" classifier "",
+        "com.sun.jersey" % "jersey-core" % {jerseyVersion},
+		"ch.qos.logback" % "logback-core" % "1.0.3" force(),
+		"ch.qos.logback" % "logback-classic" % "1.0.3" force()
+      ),
+
+      resolvers ++= Seq(
+        //"maven-central" at "http://repo1.maven.org/maven2",
+        "neo4j-public-repository" at "http://m2.neo4j.org/content/groups/public"
+      )
+    )
+*/    
 }
