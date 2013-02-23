@@ -119,7 +119,7 @@ The **@WithGraphDB** annotation enables annotated Actions and/or Controllers to 
 
 Known Issues
 =============
-* Nothing
+* [here](https://github.com/sgougi/play21-frames-neo4j-plugin/issues)
 
 Licence
 ========
