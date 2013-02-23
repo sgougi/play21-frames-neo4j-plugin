@@ -15,7 +15,6 @@
  */
 package com.wingnest.play2.frames.plugin.neo4j;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -28,7 +27,6 @@ import org.neo4j.server.configuration.ServerConfigurator;
 import com.tinkerpop.blueprints.Graph;
 import com.tinkerpop.blueprints.TransactionalGraph.Conclusion;
 import com.tinkerpop.blueprints.impls.neo4j.Neo4jGraph;
-import com.wingnest.play2.frames.plugin.FramesLogger;
 import com.wingnest.play2.frames.plugin.graphManager.AbstractGraphManager;
 import com.wingnest.play2.frames.plugin.neo4j.utils.ApplicationConfUtils;
 
@@ -56,6 +54,7 @@ public class Neo4jGraphManager extends AbstractGraphManager {
 		final Properties prop = ApplicationConfUtils.loadProperties(ApplicationConfUtils.getNeo4jProperties());
 		final Properties serverProp = ApplicationConfUtils.loadProperties(ApplicationConfUtils.getNeo4jServerProperties());
 		
+		@SuppressWarnings({ "unchecked", "rawtypes" })
 		final Map<String, String> config = new HashMap(prop);		
 		final GraphDatabaseAPI graphdb = (GraphDatabaseAPI) new GraphDatabaseFactory()
 			.newEmbeddedDatabaseBuilder(serverProp.getProperty("org.neo4j.server.database.location"))
@@ -63,7 +62,7 @@ public class Neo4jGraphManager extends AbstractGraphManager {
 			.newGraphDatabase();
 
 		final Neo4jGraph graph = new Neo4jGraph(graphdb);
-		
+
 		if(ApplicationConfUtils.isEnableWebServer()) {
 			final ServerConfigurator sconfig = new ServerConfigurator(graphdb);
 
@@ -81,7 +80,8 @@ public class Neo4jGraphManager extends AbstractGraphManager {
 	public void onShutdown() {
 		if(bootstrapperDb != null)
 			bootstrapperDb.stop();
-		bootstrapperDb = null;		
+		bootstrapperDb = null;
+
 		if(graph != null)
 			graph.shutdown();
 	}	
