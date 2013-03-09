@@ -8,7 +8,7 @@ object ApplicationBuild extends Build {
 	val appVersion      = "1.0-SNAPSHOT"
 	val tinkerpopVersion = "2.2.0"	  
 
-	val neo4jVersion    = "1.9.M04"
+	val neo4jVersion    = "1.9.M05"
 	val jerseyVersion   = "1.9"
 	  
     val appDependencies = Seq(

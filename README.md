@@ -19,7 +19,7 @@ Requirements
 Dependencies
 ============
 
-* Neo4j 1.9.M04
+* Neo4j 1.9.M05
 * TinkerPop BluePrints 2.2.0
 
 Install
