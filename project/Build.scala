@@ -26,6 +26,7 @@ object ApplicationBuild extends Build {
     val main = play.Project(appName, appVersion, appDependencies).settings(		
       // Add your own project settings here
       publishArtifact in(Compile, packageDoc) := false,
+      organization := "com.wingnest.play2",
       libraryDependencies ++= Seq(
         "org.neo4j.app" % "neo4j-server" % {neo4jVersion} classifier "static-web" classifier "",
         "com.sun.jersey" % "jersey-core" % {jerseyVersion},
