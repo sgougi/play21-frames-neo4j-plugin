@@ -1,3 +1,5 @@
+_The maintenance of this plug in is stopping._
+
 What is Frames-Neo4j Plugin ?
 ============
 
