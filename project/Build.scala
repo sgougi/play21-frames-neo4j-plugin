@@ -5,14 +5,14 @@ import play.Project._
 object ApplicationBuild extends Build {
 
 	val appName         = "play21-frames-neo4j-plugin"
-	val appVersion      = "1.0-SNAPSHOT"
-	val tinkerpopVersion = "2.2.0"	  
+	val appVersion      = "1.0"
+	val tinkerpopVersion = "2.4.0-SNAPSHOT"	  
 
-	val neo4jVersion    = "1.9.M05"
+	val neo4jVersion    = "1.9.1"
 	val jerseyVersion   = "1.9"
 	  
     val appDependencies = Seq(
-      "com.wingnest.play2" % "play21-frames-module_2.10" % "1.0-SNAPSHOT",
+      "com.wingnest.play2" % "play21-frames-module_2.10" % "2.4.0-SNAPSHOT-1.1",
       "org.neo4j" % "neo4j" % {neo4jVersion} force(),
       "org.neo4j" % "neo4j-ha" % {neo4jVersion} force(),
       "org.neo4j" % "neo4j-backup" % {neo4jVersion} force(),

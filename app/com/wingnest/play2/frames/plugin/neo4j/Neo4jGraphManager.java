@@ -50,6 +50,16 @@ public class Neo4jGraphManager extends AbstractGraphManager {
 		graph.stopTransaction(conclusion);
 	}
 	
+	@Override
+	public void commit() {
+		graph.commit();
+	}
+
+	@Override
+	public void rollback() {
+		graph.rollback();
+	}	
+	
 	private Neo4jGraph createGraph() {
 		final Properties prop = ApplicationConfUtils.loadProperties(ApplicationConfUtils.getNeo4jProperties());
 		final Properties serverProp = ApplicationConfUtils.loadProperties(ApplicationConfUtils.getNeo4jServerProperties());
