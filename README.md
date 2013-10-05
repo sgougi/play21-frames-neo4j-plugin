@@ -50,7 +50,7 @@ Install
          % play publish-local
 
 
-Run sample application and Usage
+How to run sample application and Usage
 =======================
 
 At a command prompt, type the following commands:
