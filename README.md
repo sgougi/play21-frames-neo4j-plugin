@@ -24,10 +24,10 @@ Dependencies
 * Neo4j 1.9.1
 * TinkerPop BluePrints 2.4.0-SNAPSHOT
 
-Install
+Setup
 ====
 
-  1)  Install Play framework 2.1.2
+  1)  Installing Play framework 2.1.2
 
   2)  Executing the command for installing the [TinkerPop Frames Module](http://goo.gl/0g43T) 
 
@@ -50,7 +50,7 @@ Install
          % play publish-local
 
 
-How to run sample application and Usage
+Running a sample application and Usage
 =======================
 
 At a command prompt, type the following commands:
