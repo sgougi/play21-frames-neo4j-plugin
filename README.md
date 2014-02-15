@@ -20,7 +20,7 @@ Dependencies
 * Neo4j 2.0.1
 * TinkerPop BluePrints 2.5.0-SNAPSHOT
 
-Install
+Installing
 ====
 
   1)  Install Play framework 2.2.1
@@ -46,7 +46,7 @@ Install
          % play publish-local
 
 
-How to run sample application and Usage
+How to run sample applications and Usage
 =======================
 
 At a command prompt, type the following commands:
