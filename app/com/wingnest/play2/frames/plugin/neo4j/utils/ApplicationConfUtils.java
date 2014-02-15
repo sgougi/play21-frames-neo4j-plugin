@@ -32,12 +32,12 @@ final public class ApplicationConfUtils {
 	}
 
 	public static File getNeo4jProperties() {
-		final String propsFile = getGetProperty(CONF_NEO4J_PROP_FILE, "conf/neo4j.properties").trim();
+		final String propsFile = getProperty(CONF_NEO4J_PROP_FILE, "conf/neo4j.properties").trim();
 		return new File(propsFile);
 	}
 
 	public static File getNeo4jServerProperties() {
-		final String propsFile = getGetProperty(CONF_NEO4J_SERVER_PROP_FILE, "conf/neo4j-server.properties").trim();
+		final String propsFile = getProperty(CONF_NEO4J_SERVER_PROP_FILE, "conf/neo4j-server.properties").trim();
 		return new File(propsFile);
 	}
 
@@ -59,11 +59,11 @@ final public class ApplicationConfUtils {
 	}
 
 	public static boolean isEnableWebServer() {
-		final String enable = getGetProperty(CONF_NEO4J_ENABLE_SERVER, "false").trim();
+		final String enable = getProperty(CONF_NEO4J_ENABLE_SERVER, "false").trim();
 		return enable.equalsIgnoreCase("true");
 	}
 
-	public static String getGetProperty(final String propName, final String defaultVal) {
+	public static String getProperty(final String propName, final String defaultVal) {
 		final Configuration c = Play.application().configuration();
 		final String val = c.getString(propName);
 		return  val == null ? defaultVal : val;

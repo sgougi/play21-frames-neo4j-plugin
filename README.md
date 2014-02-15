@@ -1,5 +1,3 @@
-_The maintenance of this plugin was stopped._
-
 What is Frames-Neo4j Plugin ?
 ============
 
@@ -9,8 +7,6 @@ Features
 ======
 
 * Object-Graph-Mapping by the [TinkerPop Frames](https://github.com/tinkerpop/frames/wiki)
-
-* Enables to use the [Neo4j Web Administration](http://docs.neo4j.org/chunked/milestone/tools-webadmin.html)
    
 Requirements
 ============
@@ -21,19 +17,19 @@ Requirements
 Dependencies
 ============
 
-* Neo4j 1.9.1
-* TinkerPop BluePrints 2.4.0-SNAPSHOT
+* Neo4j 2.0.1
+* TinkerPop BluePrints 2.5.0-SNAPSHOT
 
 Install
 ====
 
-  1)  Install Play framework 2.1.2
+  1)  Install Play framework 2.2.1
 
   2)  Executing the command for installing the [TinkerPop Frames Module](http://goo.gl/0g43T) 
 
          % git clone git@github.com:sgougi/play21-frames-module.git
          % cd play21-frames-module
-         % git checkout 2.4.0-SNAPSHOT-1.1
+         % git checkout 2.5.0-SNAPSHOT
          
   3)  Publishing the Frames Module to your local repository
            

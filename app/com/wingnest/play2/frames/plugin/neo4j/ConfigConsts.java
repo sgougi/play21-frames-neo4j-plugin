@@ -17,6 +17,7 @@ package com.wingnest.play2.frames.plugin.neo4j;
 
 public interface ConfigConsts {
 
+	static final String CONF_NEO4J_DB_PATH = "frames.neo4j.dbpath";
 	static final String CONF_NEO4J_PROP_FILE = "frames.neo4j.properties.file";
 	static final String CONF_NEO4J_SERVER_PROP_FILE = "frames.neo4j.server.properties.file";
 	static final String CONF_NEO4J_ENABLE_SERVER = "frames.neo4j.enable.server";

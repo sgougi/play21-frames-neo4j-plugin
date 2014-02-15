@@ -21,20 +21,17 @@ import java.util.Properties;
 
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 import org.neo4j.kernel.GraphDatabaseAPI;
-import org.neo4j.server.WrappingNeoServerBootstrapper;
-import org.neo4j.server.configuration.ServerConfigurator;
 
 import com.tinkerpop.blueprints.Graph;
 import com.tinkerpop.blueprints.TransactionalGraph.Conclusion;
-import com.tinkerpop.blueprints.impls.neo4j.Neo4jGraph;
+import com.tinkerpop.blueprints.impls.neo4j2.Neo4j2Graph;
 import com.wingnest.play2.frames.plugin.graphManager.AbstractGraphManager;
 import com.wingnest.play2.frames.plugin.neo4j.utils.ApplicationConfUtils;
+import static com.wingnest.play2.frames.plugin.neo4j.ConfigConsts.*;
 
 public class Neo4jGraphManager extends AbstractGraphManager {
 
-	private static volatile WrappingNeoServerBootstrapper bootstrapperDb = null;
-	
-	final private Neo4jGraph graph;
+	final private Neo4j2Graph graph;
 	
 	public Neo4jGraphManager() {
 		graph = createGraph();
@@ -45,7 +42,7 @@ public class Neo4jGraphManager extends AbstractGraphManager {
 		return (T)graph;
 	}
 
-	@Override
+	@Deprecated
 	public void stopTransaction(final Conclusion conclusion) {
 		graph.stopTransaction(conclusion);
 	}
@@ -60,38 +57,23 @@ public class Neo4jGraphManager extends AbstractGraphManager {
 		graph.rollback();
 	}	
 	
-	private Neo4jGraph createGraph() {
-		final Properties prop = ApplicationConfUtils.loadProperties(ApplicationConfUtils.getNeo4jProperties());
-		final Properties serverProp = ApplicationConfUtils.loadProperties(ApplicationConfUtils.getNeo4jServerProperties());
+	private Neo4j2Graph createGraph() {
 		
+		final Properties prop = ApplicationConfUtils.loadProperties(ApplicationConfUtils.getNeo4jProperties());
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		final Map<String, String> config = new HashMap(prop);		
 		final GraphDatabaseAPI graphdb = (GraphDatabaseAPI) new GraphDatabaseFactory()
-			.newEmbeddedDatabaseBuilder(serverProp.getProperty("org.neo4j.server.database.location"))
+			.newEmbeddedDatabaseBuilder(ApplicationConfUtils.getProperty(CONF_NEO4J_DB_PATH, "db"))
 			.setConfig(config)
 			.newGraphDatabase();
 
-		final Neo4jGraph graph = new Neo4jGraph(graphdb);
-
-		if(ApplicationConfUtils.isEnableWebServer()) {
-			final ServerConfigurator sconfig = new ServerConfigurator(graphdb);
-
-			for ( Object key : serverProp.keySet() ) {
-				sconfig.configuration().setProperty(key.toString(), serverProp.get(key));
-			}			
-			bootstrapperDb = new WrappingNeoServerBootstrapper(graphdb, sconfig);
-			bootstrapperDb.start();
-		}
+		final Neo4j2Graph graph = new Neo4j2Graph(graphdb);
 
 		return graph;
 	}
 
 	@Override
 	public void onShutdown() {
-		if(bootstrapperDb != null)
-			bootstrapperDb.stop();
-		bootstrapperDb = null;
-
 		if(graph != null)
 			graph.shutdown();
 	}	
